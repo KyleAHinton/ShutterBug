@@ -1,7 +1,6 @@
 <template>
     <div class="searchbar">
         <v-text-field
-        v-model="title"
         label="Image Search"
         clearable
         outlined
@@ -15,7 +14,7 @@
 
 <script>
 export default {
-    
+    name: "Searchbar",
 }
 </script>
 
