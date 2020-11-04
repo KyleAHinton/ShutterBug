@@ -16,10 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
+<<<<<<< HEAD
 from backend.searchImage import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', obtain_auth_token),
     path('test/', views.ImageViewSet)
+=======
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('auth/', obtain_auth_token)
+>>>>>>> master
 ]
