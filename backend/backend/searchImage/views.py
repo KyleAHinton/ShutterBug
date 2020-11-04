@@ -14,6 +14,8 @@
 #   query: string search term
 #   width: pixel width
 #   width_from: boolean, if true then width value greater than or equal, false lessthan or equal, none exact
+#
+# Returns an array of URLs under "image_urls" tag in JSON
 #########################################################################################################################  
 from rest_framework import viewsets
 from rest_framework import permissions
