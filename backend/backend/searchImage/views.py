@@ -70,5 +70,10 @@ def ImageViewSet(request):
     # pass valid query
     url = urllib.parse.urlencode(options)
     resp = requests.get(('https://api.shutterstock.com/v2/images/search?' + url), headers=header)
-    url1 = resp.json()['data'][0]['assets']['preview']['url']
-    return Response(url1)
+    
+    # get results and return list of urls
+    raw_data = resp.json()['data']
+    # if more data is needed grab it and pass it into images dic
+    images = {'image_urls' : [image['assets']['preview']['url'] for image in raw_data]}
+    
+    return Response(images)
