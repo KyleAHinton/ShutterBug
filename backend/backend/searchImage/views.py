@@ -1,7 +1,8 @@
 #########################################################################################################################
 # Author: Paul Wells
 # Purpose: Retrieve image url's from websites based on search params
-# Valid Params: 
+# Endpoint: /search
+# Valid Params:
 #   aspect_ratio: must be width divided by height, example 16:9 is 1.7778
 #   aspect_ratio_min: boolean, if true then it will search for anything greater than or equal to passed in aspect ratio,
 #      false means it will return less than or equal to the passed in ratio, no value passed in means only equal.

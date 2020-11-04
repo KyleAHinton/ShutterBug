@@ -21,4 +21,4 @@ from backend.searchImage import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', obtain_auth_token),
-    path('test/', views.ImageViewSet)]
+    path('search/', views.ImageViewSet)]

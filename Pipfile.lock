@@ -1,11 +1,7 @@
 {
     "_meta": {
         "hash": {
-<<<<<<< HEAD
             "sha256": "1a3f3d1f5561451f1782634e12c7c12bbc3d4403f13c9d7116ee6e5a365a6caa"
-=======
-            "sha256": "a40d010ce1112687a94bf8a89c116456f5d145f499a2f7b2007d9758b8d02a69"
->>>>>>> master
         },
         "pipfile-spec": 6,
         "requires": {
@@ -22,7 +18,6 @@
     "default": {
         "asgiref": {
             "hashes": [
-<<<<<<< HEAD
                 "sha256:a5098bc870b80e7b872bff60bb363c7f2c2c89078759f6c47b53ff8c525a152e",
                 "sha256:cd88907ecaec59d78e4ac00ea665b03e571cb37e3a0e37b3702af1a9e86c365a"
             ],
@@ -50,21 +45,6 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==3.1.3"
-=======
-                "sha256:7e51911ee147dd685c3c8b805c0ad0cb58d360987b56953878f8c06d2d1c6f1a",
-                "sha256:9fc6fb5d39b8af147ba40765234fa822b39818b12cc80b35ad9b0cef3a476aed"
-            ],
-            "markers": "python_version >= '3.5'",
-            "version": "==3.2.10"
-        },
-        "django": {
-            "hashes": [
-                "sha256:a2127ad0150ec6966655bedf15dbbff9697cc86d61653db2da1afa506c0b04cc",
-                "sha256:c93c28ccf1d094cbd00d860e83128a39e45d2c571d3b54361713aaaf9a94cac4"
-            ],
-            "markers": "python_version >= '3.6'",
-            "version": "==3.1.2"
->>>>>>> master
         },
         "djangorestframework": {
             "hashes": [
@@ -74,7 +54,6 @@
             "index": "pypi",
             "version": "==3.12.1"
         },
-<<<<<<< HEAD
         "idna": {
             "hashes": [
                 "sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6",
@@ -97,7 +76,7 @@
             ],
             "index": "pypi",
             "version": "==2.24.0"
-=======
+		},
         "mysql": {
             "hashes": [
                 "sha256:55e66b5e7b3823b1da5fb2a063e95a628fb850b2a0b76bdcd884faac5d2daa7d"
@@ -121,7 +100,6 @@
                 "sha256:c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048"
             ],
             "version": "==2020.1"
->>>>>>> master
         },
         "sqlparse": {
             "hashes": [
@@ -130,7 +108,6 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==0.4.1"
-<<<<<<< HEAD
         },
         "urllib3": {
             "hashes": [
@@ -139,8 +116,6 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.25.11"
-=======
->>>>>>> master
         }
     },
     "develop": {}
