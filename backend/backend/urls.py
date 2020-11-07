@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 from backend.searchImage import views
+from portfolio import views as pviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', obtain_auth_token),
-    path('search/', views.ImageViewSet)]
+    path('search/', views.ImageViewSet),
+    path('portfolio/', pviews.PortfolioViewSet),
+    path('image/', pviews.ImageAddViewSet)]

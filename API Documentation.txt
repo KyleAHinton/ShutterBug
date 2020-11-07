@@ -1,0 +1,65 @@
+Endpoint: /search
+	Method: GET
+		Valid Params:
+		    aspect_ratio: must be width divided by height, example 16:9 is 1.7778
+		    aspect_ratio_min: boolean, if true then it will search for anything greater than or equal to passed in aspect ratio,
+			   false means it will return less than or equal to the passed in ratio, no value passed in means only equal.
+		    color: string hex value for dominant color search
+		    height: pixel height
+		    height_from: boolean, if true then height value greater than or equal, false lessthan or equal, none exact
+		    orientation: string, either "vertical", "horizontal"
+		    page: page number
+		    per_page: num of results per page
+		    query: string search term
+		    width: pixel width
+		    width_from: boolean, if true then width value greater than or equal, false lessthan or equal, none exact
+		  
+		Returns an array of URLs under "image_urls" tag in JSON
+
+Endpoint: /image
+	Method: GET
+		Valid Params:
+			id: numeric ID of image database entry
+		
+		Returns an image JSON object with the provided ID, or returns all images if no ID is provided
+		
+	Method: POST
+		Valid Params:
+			JSON Object with the following:
+			{
+				"url" : URL to photo,
+				"mods" : JSON Object of mods to the photo
+			}
+		
+		Will return a 201 CREATED if everything is valid
+	
+	Method: DELETE
+		Valid Params:
+			id: numeric ID of image database entry
+		
+		Returns conformation that the image was deleted with the provided ID
+
+Endpoint: /portfolio
+	Method: GET
+		Valid Params:
+			user: numeric ID of user in database
+		
+		Returns all portfolio entries for a user in the form of JSON objects
+	
+	Method: POST
+		Valid Params:
+			JSON Object with the following:
+			{
+				"user" : numeric ID of user,
+				"photo" : numeric ID of photo,
+				"tags" : JSON Object of tags
+			}
+		
+		Will return a 201 CREATED if everything is valid
+	
+	Method: DELETE
+		Valid Params:
+			user: numeric ID of user in database
+			photo: numeric ID of photo in database
+			
+		Returns conformation that the portfolio entry was deleted with the provided user ID and image ID
