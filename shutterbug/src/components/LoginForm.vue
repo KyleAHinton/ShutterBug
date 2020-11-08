@@ -47,13 +47,14 @@ export default {
   methods: {
     login() {
       axios
-        .post("http://127.0.0.1:8000/auth/", {
+        .post("http://127.0.0.1:8000/authenticate/", {
           username: this.loginUsername,
           password: this.loginPassword,
         })
         .then((resp) => {
           this.token = resp.data.token;
           localStorage.setItem("user-token", resp.data.token);
+          localStorage.setItem("user-id", resp.data.id);
           this.$router.push('/');
         })
         .catch((err) => {

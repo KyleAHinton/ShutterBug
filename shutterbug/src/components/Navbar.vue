@@ -33,6 +33,7 @@
 export default {
   data: () => ({
       token: localStorage.getItem("user-token"),
+      uid: localStorage.getItem("user-id"),
   }),
   methods: {
     logout() {
