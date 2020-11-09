@@ -9,7 +9,7 @@
       </v-toolbar-title>
       <v-spacer> </v-spacer>
 
-      <v-btn color="grey" class="btn" small v-if="token !== null">
+      <v-btn color="grey" class="btn" small v-if="token !== null" to="/Portfolio">
         <span>Folders</span>
       </v-btn>
 
