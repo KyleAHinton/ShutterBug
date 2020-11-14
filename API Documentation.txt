@@ -27,8 +27,10 @@ Endpoint: /image
 		Valid Params:
 			JSON Object with the following:
 			{
+			    "id" : numeric id, OPTIONAL if provided will overwrite existing id or create new model with id. If not
+			            provided will be auto assigned
 				"url" : URL to photo,
-				"mods" : JSON Object of mods to the photo
+				"mods" : JSON dictionary of mods to the photo
 			}
 		
 		Will return a 201 CREATED if everything is valid
@@ -50,9 +52,11 @@ Endpoint: /portfolio
 		Valid Params:
 			JSON Object with the following:
 			{
+			    "id" : numeric id, OPTIONAL if provided will overwrite existing id or create new model with id. If not
+			            provided will be auto assigned
 				"user" : numeric ID of user,
 				"photo" : numeric ID of photo,
-				"tags" : JSON Object of tags
+				"tags" : JSON list of tags
 			}
 		
 		Will return a 201 CREATED if everything is valid

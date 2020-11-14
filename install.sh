@@ -1,25 +1,40 @@
 #!/bin/bash
 echo "Installing python3"
 sudo apt-get install python3 python3-pip pipenv -y
+sudo pip3 install --upgrade pip
 
 echo "Installing python3-dev"
 sudo apt-get install python3-dev -y
 
-echo "Installing git"
-sudo apt-get install git -y
-
 echo "Installing mysql"
-sudo apt-get install mysql -y
+sudo apt-get install mysql-server -y
+
+echo "Installing npm"
+sudo apt-get install npm -y
 
 echo "Installing apache2"
 sudo apt-get install apache2 libapache2-mod-wsgi-py3 -y
 
-sudo git clone https://github.com/KyleAHinton/ShutterBug.git
-sudo mv ShutterBug /var/www/
+sudo apt-get upgrade
+
+sudo mv ../ShutterBug /var/www/
 cd /var/www/ShutterBug
-sudo pipenv --python 3.8 install --system
+sudo pipenv --python 3.8 sync
 
+cd shutterbug
+sudo rm node_modules
+sudo npm install
+sudo npm run build
+sudo cp -r dist/* /var/www/html/
 
+sql="CREATE DATABASE Shutterbug;CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';FLUSH PRIVILEGES;"
+sudo mysql -e "$sql"
+
+cd /var/www/ShutterBug
+pipenv install
+sudo pipenv --python 3.8 install --system --ignore-pipfile --keep-outdated
+cd backend
+python manage.py migrate
 
 sudo su
 conf="<VirtualHost *:80>
