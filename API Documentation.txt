@@ -52,14 +52,13 @@ Endpoint: /portfolio
 		Valid Params:
 			JSON Object with the following:
 			{
-			    "id" : numeric id, OPTIONAL if provided will overwrite existing id or create new model with id. If not
-			            provided will be auto assigned
 				"user" : numeric ID of user,
 				"photo" : numeric ID of photo,
 				"tags" : JSON list of tags
 			}
 		
-		Will return a 201 CREATED if everything is valid
+		Will return a 201 CREATED if everything is valid.
+		If user and photo already exist, it will
 	
 	Method: DELETE
 		Valid Params:

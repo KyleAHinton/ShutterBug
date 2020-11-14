@@ -28,13 +28,14 @@ def PortfolioViewSet(request):
     # POST request handler
     elif request.method == 'POST':
         portfolio_data = JSONParser().parse(request)
-        if 'id' in portfolio_data.keys():
-            port_id = portfolio_data['id']
+        if 'photo' in portfolio_data.keys():
+            port_id = portfolio_data['photo']
+            #port_usr = portfolio_data['user']
         else:
             port_id = None
         # check if id is provided, then run update
         if port_id is not None:
-            portfolio_f = Portfolio.objects.all().filter(id=port_id)[0]
+            portfolio_f = Portfolio.objects.all().filter(photo=port_id)[0]
             portfolio_serializer = PortfolioSerializer(portfolio_f, data=portfolio_data)
         else:
             portfolio_serializer = PortfolioSerializer(data=portfolio_data)
