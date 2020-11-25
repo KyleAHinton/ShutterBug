@@ -81,3 +81,10 @@ Endpoint: /edit
 			}
 		
 		Will return 201 Create on success
+
+Endpoint: /logs
+	Method: GET
+		Valid Params:
+			user_id: numeric id of user
+		
+		Returns json object with nested json where the key is the timestamp and it contains infor for "user_id", "url", "edits" all of which can be fed to /edit endpoint

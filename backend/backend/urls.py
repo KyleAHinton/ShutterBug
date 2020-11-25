@@ -28,5 +28,6 @@ urlpatterns = [
     path('portfolio/', pviews.PortfolioViewSet),
     path('image/', pviews.ImageAddViewSet),
     path('edit/', pviews.EditView),
+    path('logs/', pviews.LogView),
     path('authenticate/', CustomObtainAuthToken.as_view()),
     path(settings.MEDIA_URL[1:] + '<path:path>', pviews.download)]

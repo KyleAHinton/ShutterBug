@@ -1,9 +1,7 @@
+import errno
 import string
 import random
 from io import BytesIO
-from urllib.parse import urljoin
-
-from django.shortcuts import render
 
 from django.http.response import JsonResponse, Http404, HttpResponse
 from rest_framework.parsers import JSONParser 
@@ -20,6 +18,7 @@ from django.conf import settings
 import os
 from PIL import Image as PImage
 import json
+from datetime import datetime
 
 @api_view(['GET', 'POST', 'DELETE'])
 def PortfolioViewSet(request):
@@ -40,7 +39,6 @@ def PortfolioViewSet(request):
         portfolio_data = JSONParser().parse(request)
         if 'id' in portfolio_data.keys():
             port_id = portfolio_data['id']
-            #port_usr = portfolio_data['user']
         else:
             port_id = None
         # check if id is provided, then run update
@@ -64,7 +62,8 @@ def PortfolioViewSet(request):
         if user is not None and image_id is not None:
             entry = portfolio.filter(user=user, photo=image_id)
             count = entry.delete()
-            return JsonResponse({'message': '{} Portfolio entries were deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse({'message': '{} Portfolio entries were deleted successfully!'.format(count[0])},
+                                status=status.HTTP_204_NO_CONTENT)
         return JsonResponse({'message': 'Invalid portfolio entry!'}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -122,6 +121,16 @@ def EditView(request):
         result_str = ''.join(random.choice(letters) for i in range(length))
         return result_str
 
+    # make directory if it doesnt exist
+    def mkdir_p(path):
+        try:
+            os.makedirs(path)
+        except OSError as exc:  # Python >2.5
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else:
+                raise
+
     if request.method == "POST":
         image_data = JSONParser().parse(request)
         url = image_data['url']
@@ -149,12 +158,21 @@ def EditView(request):
 
         mod_image.save(pth)
         # save modified image to database
-        payload = {"url": new_url}#, "mods": edits}
+        payload = {"url": new_url, "mods": edits}
         image_r = requests.post("http://127.0.0.1:8000/image/", json=payload)
         image_id = json.loads(image_r.content)['id']
         payload = {"user": user_id, "photo": image_id}
         port_r = requests.post("http://127.0.0.1:8000/portfolio/", json=payload)
-        print(port_r.content)
+
+        # log edit
+        log_path = os.path.join(os.path.dirname(__file__), "logs")
+        # make path if it doesnt exist
+        mkdir_p(log_path)
+        log_file = open(os.path.join(log_path, "edit_log.log"), "a")
+        time = datetime.now()
+        entry = str(time) + ";user_id=" + str(user_id) + ";url=" + url + ";edits=" + str(edits) + "\n"
+        entry = entry.replace("'", '"')
+        log_file.write(entry)
 
         return JsonResponse({"message": "Created"}, status=status.HTTP_201_CREATED)
 
@@ -163,7 +181,30 @@ def download(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read())
+            response = HttpResponse(fh.read(), content_type="image")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
     raise Http404
+
+
+@api_view(["GET"])
+def LogView(request):
+    if request.method == "GET":
+        passed_user_id = request.query_params.get('user_id', None)
+        if passed_user_id is None:
+            return JsonResponse({'message': 'Invalid User ID!'}, status=status.HTTP_400_BAD_REQUEST)
+        log_path = os.path.join(os.path.dirname(__file__), "logs")
+        log_file = open(os.path.join(log_path, "edit_log.log"), "r")
+        logs = dict()
+        for line in log_file:
+            print(str(line.split(",")) + "\n---\n")
+            if ';' not in line:
+                break
+            data = line.split(";")
+            time = data[0]
+            user_id = data[1].split("=")[1]
+            url = data[2].split("=")[1]
+            edits = json.loads(data[3].split("=")[1])
+            if int(user_id) == int(passed_user_id):
+                logs[time] = {"user_id": user_id, "url": url, "edits": edits}
+        return JsonResponse(logs, status=status.HTTP_200_OK)
