@@ -1,7 +1,7 @@
 <template>
   <v-footer class="footer">
     <!-- Download a photo, always available. -->
-    <v-btn color="grey" class="btn" small @click="download()">
+    <v-btn color="grey" class="btn" @click="download()">
       <span>Download</span>
     </v-btn>
     <v-spacer></v-spacer>
@@ -9,20 +9,37 @@
     <v-btn color="grey" class="btn" @click="image()">
       <span>Save</span>
     </v-btn>
-    <v-spacer></v-spacer>
-    <!-- Button to modify a given photo, available if that photo has been saved. -->
-    <v-btn color="grey" class="btn" small>
-      <span>Modify</span>
-    </v-btn>
-    <v-spacer></v-spacer>
-    <!-- Button to delete the photo from a given user, if that user has saved said photo -->
-    <v-btn color="grey" class="btn" small>
-      <span>Delete</span>
-    </v-btn>
-    <!-- Tag field, when tags are entered and then saved, they are included with the request to the portfolio API -->
     <v-text-field
       v-model="tags"
       label="Photo Tags"
+      outlined
+      filled
+      small
+      clearable
+    >
+    </v-text-field>
+    <!-- Button to modify a given photo, available if that photo has been saved. -->
+    <!-- Button to delete the photo from a given user, if that user has saved said photo -->
+    <v-btn color="grey" class="btn">
+      <span>Delete</span>
+    </v-btn>
+    <!-- Tag field, when tags are entered and then saved, they are included with the request to the portfolio API -->
+    <v-btn color="grey" class="btn" @click="modify()">
+      <span>Modify</span>
+    </v-btn>
+    <v-text-field
+      v-model="tags"
+      :label="this.imgwidth"
+      outlined
+      filled
+      small
+      clearable
+    >
+    </v-text-field>
+
+    <v-text-field
+      v-model="tags"
+      :label="this.imgheight"
       outlined
       filled
       small
@@ -38,16 +55,25 @@ import axios from "axios";
 export default {
   data: () => ({
     images: localStorage.getItem("images").split(","),
-    uid: localStorage.getItem("user-id")
+    uid: localStorage.getItem("user-id"),
+    imgheight: 0,
+    imgwidth: 0,
   }),
+    mounted() {
+      var url = String(this.images[Number(this.$route.params.id)]);
+      var img = new Image();
+      img.src = url;
+      this.imgheight = img.height;
+      this.imgwidth = img.width;
+    },
   methods: {
     download() {
       axios({
         method: "get",
         url: String(this.images[Number(this.$route.params.id)]),
-        responseType: "arraybuffer"
+        responseType: "arraybuffer",
       })
-        .then(response => {
+        .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
           link.href = url;
@@ -62,29 +88,32 @@ export default {
         .post("http://127.0.0.1:8000/portfolio/", {
           user: this.uid,
           photo: response,
-          tags: this.tags
+          tags: this.tags,
         })
-        .then(resp => {
+        .then((resp) => {
           console.log(resp);
           this.$router.push("/Portfolio/");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
     image() {
       axios
         .post("http://127.0.0.1:8000/image/", {
-          url: String(this.images[Number(this.$route.params.id)])
+          url: String(this.images[Number(this.$route.params.id)]),
         })
-        .then(resp => {
+        .then((resp) => {
           this.portfolio(resp.data.id);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
-  }
+    modify() {
+
+    }
+  },
 };
 </script>
 
