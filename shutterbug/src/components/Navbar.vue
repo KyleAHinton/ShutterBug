@@ -10,12 +10,12 @@
       </v-toolbar-title>
       <v-spacer> </v-spacer>
 
-      <v-btn color="grey" class="btn" small v-if="token !== null" to="/Portfolio">
+      <v-btn color="secondary" class="btn" small v-if="token !== null" to="/Portfolio">
         <span><h2>Folders</h2></span>
       </v-btn>
 
-      <v-btn color="secondary"  class="btn" small v-if="token !== null">
-        <span><h2>Settings</h2></span>
+      <v-btn color="secondary"  class="btn" small v-if="token !== null" to="/Logs">
+        <span><h2>Logs</h2></span>
       </v-btn>
 
       <v-btn v-if="token != null" color="secondary"  class="btn" small @click="logout">
