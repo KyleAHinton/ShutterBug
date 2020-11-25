@@ -20,6 +20,8 @@ from backend.searchImage import views
 from portfolio import views as pviews
 from .views import CustomObtainAuthToken
 from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +32,6 @@ urlpatterns = [
     path('edit/', pviews.EditView),
     path('logs/', pviews.LogView),
     path('authenticate/', CustomObtainAuthToken.as_view()),
-    path(settings.MEDIA_URL[1:] + '<path:path>', pviews.download)]
+    path('', TemplateView.as_view(template_name='index.html')),
+    path(settings.MEDIA_URL[1:] + '<path:path>', pviews.download)] + static(settings.STATIC_URL,
+                                                                            document_root=settings.STATIC_ROOT)

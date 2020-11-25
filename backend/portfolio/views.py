@@ -288,5 +288,5 @@ def LogView(request):
                 # add log entry to return for user with time being the key
                 logs[time] = {"user_id": user_id, "url": url, "edits": edits}
 
-        # return JSON with logs, logs will be empty if nothing is found
+        # return JSON with logs, logs will be empty if nothing is found a
         return JsonResponse(logs, status=status.HTTP_200_OK)
