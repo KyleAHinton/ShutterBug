@@ -5,7 +5,7 @@
         <v-container>
           <v-hover v-slot="{ hover }">
             <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-              <v-img :src="images[n-1]" aspect-ratio="1" class="”image-fit”"></v-img>
+              <v-img :src="images[index]" aspect-ratio="1" class="”image-fit”"></v-img>
               <v-btn
                 :class="{ 'show-btns': hover }"
                 color="transparent"
@@ -84,7 +84,7 @@ export default {
       axios
         .delete(`http://127.0.0.1:8000/portfolio/?photo=${this.imageIDs[n]}&user=${this.uid}`)
         .then((resp) => {
-          this.images.pop(n);
+          this.images.splice(n, 1);
           console.log(n)
           console.log(resp)
         })
