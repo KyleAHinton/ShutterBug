@@ -24,7 +24,7 @@
       <span>Delete</span>
     </v-btn>
     <!-- Tag field, when tags are entered and then saved, they are included with the request to the portfolio API -->
-    <v-btn color="grey" class="btn" @click="resize(String(images[Number($route.params.id)]))">
+    <v-btn color="grey" class="btn" @click="resize()">
       <span>Resize</span>
     </v-btn>
     <v-text-field
@@ -56,8 +56,8 @@ export default {
   data: () => ({
     images: localStorage.getItem("images").split(","),
     uid: localStorage.getItem("user-id"),
-    imgheight: 0,
-    imgwidth: 0,
+    imgheight: "0",
+    imgwidth: "0",
   }),
     mounted() {
       var url = String(this.images[Number(this.$route.params.id)]);
@@ -92,7 +92,7 @@ export default {
         })
         .then((resp) => {
           console.log(resp);
-          this.$router.push("/Portfolio/");
+          this.$router.to("Portfolio/");
         })
         .catch((err) => {
           console.log(err);
@@ -110,10 +110,10 @@ export default {
           console.log(err);
         });
     },
-    resize(image) {
+    resize() {
       axios
       .post("http://127.0.0.1:8000/edit/", {
-        url: image,
+        url: String(this.images[Number(this.$route.params.id)]),
 				user_id: this.uid,
 				edits: {
 					resize: [parseInt(this.imgWidth), parseInt(this.imgHeight)]
