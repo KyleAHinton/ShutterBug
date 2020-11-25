@@ -1,6 +1,7 @@
 .DS_Store
 /shutterbug/node_modules/
 dist
+media\*
 
 Pipfile
 
@@ -22,3 +23,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.jpg
+*.png
+*.log

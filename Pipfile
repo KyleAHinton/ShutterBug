@@ -1,12 +1,21 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
+name = "pypi"
 
 [packages]
+pillow = "*"
 django-cors-headers = "*"
+certifi = "*"
+django = "*"
+djangorestframework = "*"
+idna = "*"
+requests = "*"
+mysql = "*"
+mysqlclient = "*"
+urllib3 = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.8"

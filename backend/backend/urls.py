@@ -19,6 +19,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from backend.searchImage import views
 from portfolio import views as pviews
 from .views import CustomObtainAuthToken
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,7 @@ urlpatterns = [
     path('search/', views.ImageViewSet),
     path('portfolio/', pviews.PortfolioViewSet),
     path('image/', pviews.ImageAddViewSet),
-    path('authenticate/', CustomObtainAuthToken.as_view())]
+    path('edit/', pviews.EditView),
+    path('logs/', pviews.LogView),
+    path('authenticate/', CustomObtainAuthToken.as_view()),
+    path(settings.MEDIA_URL[1:] + '<path:path>', pviews.download)]

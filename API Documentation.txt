@@ -27,8 +27,10 @@ Endpoint: /image
 		Valid Params:
 			JSON Object with the following:
 			{
+			    "id" : numeric id, OPTIONAL if provided will overwrite existing id or create new model with id. If not
+			            provided will be auto assigned
 				"url" : URL to photo,
-				"mods" : JSON Object of mods to the photo
+				"mods" : JSON dictionary of mods to the photo
 			}
 		
 		Will return a 201 CREATED if everything is valid
@@ -52,10 +54,11 @@ Endpoint: /portfolio
 			{
 				"user" : numeric ID of user,
 				"photo" : numeric ID of photo,
-				"tags" : JSON Object of tags
+				"tags" : JSON list of tags
 			}
 		
-		Will return a 201 CREATED if everything is valid
+		Will return a 201 CREATED if everything is valid.
+		If user and photo already exist, it will
 	
 	Method: DELETE
 		Valid Params:
@@ -63,3 +66,25 @@ Endpoint: /portfolio
 			photo: numeric ID of photo in database
 			
 		Returns conformation that the portfolio entry was deleted with the provided user ID and image ID
+
+Endpoint: /edit
+	Method: POST
+		Valid Params:
+			JSON Object with the following:
+			{
+				"url": URL of image to be modified,
+				"user_id": id of user,
+				"edits": {
+					"crop": [left pixel, top pixel, right pixel, bottom pixel], think of (top left cord) (bottom right cord)
+					"resize": [dimension width, dimension heght]
+				}
+			}
+		
+		Will return 201 Create on success
+
+Endpoint: /logs
+	Method: GET
+		Valid Params:
+			user_id: numeric id of user
+		
+		Returns json object with nested json where the key is the timestamp and it contains infor for "user_id", "url", "edits" all of which can be fed to /edit endpoint
