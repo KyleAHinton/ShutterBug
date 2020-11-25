@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
 import Imageview from "../views/Imageview.vue"
 import PortfolioView from "../views/PortfolioView.vue"
+import PortfolioInfo from "../views/PortfolioInfo.vue"
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/Portfolio",
     name: "PortfolioView",
     component: PortfolioView
+  },
+  {
+    path: "/Portfolio/:id/:user",
+    name: "PortfolioInfo",
+    component: PortfolioInfo
   }
 ];
 
