@@ -24,11 +24,11 @@
       <span>Delete</span>
     </v-btn>
     <!-- Tag field, when tags are entered and then saved, they are included with the request to the portfolio API -->
-    <v-btn color="grey" class="btn" @click="modify()">
-      <span>Modify</span>
+    <v-btn color="grey" class="btn" @click="resize(String(images[Number($route.params.id)]))">
+      <span>Resize</span>
     </v-btn>
     <v-text-field
-      v-model="tags"
+      v-model="imgWidth"
       :label="this.imgwidth"
       outlined
       filled
@@ -38,7 +38,7 @@
     </v-text-field>
 
     <v-text-field
-      v-model="tags"
+      v-model="imgHeight"
       :label="this.imgheight"
       outlined
       filled
@@ -110,8 +110,18 @@ export default {
           console.log(err);
         });
     },
-    modify() {
-
+    resize(image) {
+      axios
+      .post("http://127.0.0.1:8000/edit/", {
+        url: image,
+				user_id: this.uid,
+				edits: {
+					resize: [parseInt(this.imgWidth), parseInt(this.imgHeight)]
+				}
+      })
+      .then(() => {
+        this.$router.push("Portfolio/");
+      })
     }
   },
 };
