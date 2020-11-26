@@ -85,8 +85,9 @@ export default {
         .delete(`http://127.0.0.1:8000/portfolio/?photo=${this.imageIDs[n]}&user=${this.uid}`)
         .then((resp) => {
           this.images.splice(n, 1);
-          console.log(n)
-          console.log(resp)
+          this.imageIDs.splice(n, 1);
+          console.log(n);
+          console.log(resp);
         })
         .catch((err) => {
           console.log(err);
