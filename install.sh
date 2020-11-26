@@ -5,7 +5,7 @@ echo "Installing python3"
 sudo apt-get install python3 python3-pip -y
 sudo pip3 install --upgrade pip
 
-sudo pip install pipenv --forse-reinstall
+sudo pip install pipenv --force-reinstall
 
 echo "Installing python3-dev"
 sudo apt-get install python3-dev -y
